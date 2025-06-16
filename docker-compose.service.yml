@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  interverse-api:
+    image: ventileco/interverse-api-server:latest
+    container_name: interverse-api
+    env_file:
+      - ./nginx/env/api/.env
+    expose:
+      - "8000"
+    networks:
+      - proxy-net
+    restart: unless-stopped
+
+  interverse-socket:
+    image: ventileco/interverse-socket-server:latest
+    container_name: interverse-socket
+    env_file:
+      - ./nginx/env/socket/.env
+    expose:
+      - "8001"
+    networks:
+      - proxy-net
+    restart: unless-stopped
+
+networks:
+  proxy-net:
+    external: true

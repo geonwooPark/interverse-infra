@@ -7,6 +7,8 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - proxy-net
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./nginx/www:/var/www/certbot
@@ -20,21 +22,9 @@ services:
       - ./nginx/ssl:/etc/letsencrypt
       - ./nginx/www:/var/www/certbot
     entrypoint: /bin/sh
+    networks:
+      - proxy-net
 
-  interverse-api:
-    image: ventileco/interverse-api-server:latest
-    container_name: interverse-api
-    env_file:
-      - ./nginx/env/api/.env
-    expose:
-      - "8000"
-    restart: unless-stopped
-
-  interverse-socket:
-    image: ventileco/interverse-socket-server:latest
-    container_name: interverse-socket
-    env_file:
-      - ./nginx/env/socket/.env
-    expose:
-      - "8001"
-    restart: unless-stopped
+networks:
+  proxy-net:
+    external: true
