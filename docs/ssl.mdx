@@ -1,0 +1,16 @@
+# 초기 ssl 인증 명령어
+
+BASE_DIR="$(pwd)/nginx"
+DOMAIN="도메인명"
+EMAIL="이메일명"
+
+docker run --rm \
+ -v "$BASE_DIR/ssl:/etc/letsencrypt" \
+  -v "$BASE_DIR/www:/var/www/certbot" \
+ certbot/certbot certonly \
+ --webroot -w /var/www/certbot \
+ --agree-tos \
+ --no-eff-email \
+ --email "$EMAIL" \
+  -d "$DOMAIN" \
+ --non-interactive
