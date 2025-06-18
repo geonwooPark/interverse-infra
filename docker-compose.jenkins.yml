@@ -11,6 +11,9 @@ services:
     volumes:
       - nginx_jenkins_home:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
+      - $SSH_AUTH_SOCK:/ssh-agen
+    environment:
+      - SSH_AUTH_SOCK=/ssh-agent
     restart: unless-stopped
     expose:
       - "8080"
