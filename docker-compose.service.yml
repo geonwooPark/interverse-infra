@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   interverse-api:
-    image: ventileco/interverse-api-server:latest
+    image: ventileco/interverse-api-server:alpha
     container_name: interverse-api
     env_file:
       - ./nginx/env/api/.env
@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
 
   interverse-socket:
-    image: ventileco/interverse-socket-server:latest
+    image: ventileco/interverse-socket-server:alpha
     container_name: interverse-socket
     env_file:
       - ./nginx/env/socket/.env
